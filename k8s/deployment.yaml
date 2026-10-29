@@ -1,32 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: "{{AGENT_ID}}"
-  namespace: "agents-{{TEAM_NAME}}"
+  name: "msdemo2"
+  namespace: "agents-msteam"
   labels:
-    app: "{{AGENT_ID}}"
-    team: "{{TEAM_NAME}}"
+    app: "msdemo2"
+    team: "msteam"
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: "{{AGENT_ID}}"
+      app: "msdemo2"
   template:
     metadata:
       labels:
-        app: "{{AGENT_ID}}"
-        team: "{{TEAM_NAME}}"
+        app: "msdemo2"
+        team: "msteam"
         azure.workload.identity/use: "true"
     spec:
-      serviceAccountName: "sa-{{AGENT_ID}}"
+      serviceAccountName: "sa-msdemo2"
       containers:
-        - name: "{{AGENT_ID}}"
-          image: "{{ACR_LOGIN_SERVER}}/agents/{{AGENT_ID}}:latest"
+        - name: "msdemo2"
+          image: "acragenticdemopoc.azurecr.io/agents/msdemo2:latest"
           ports:
             - containerPort: 8000
           envFrom:
             - configMapRef:
-                name: "config-{{AGENT_ID}}"
+                name: "config-msdemo2"
           resources:
             requests:
               cpu: 250m
